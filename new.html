@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Deep Jain Namkeen</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+scroll-behavior:smooth;
+}
+
+body{
+
+background:
+linear-gradient(135deg,
+#1f1c2c,
+#3a1c71,
+#d76d77,
+#ffaf7b);
+
+background-size:400% 400%;
+animation:premiumBG 12s ease infinite;
+
+overflow-x:hidden;
+color:#222;
+}
+
+@keyframes premiumBG{
+
+0%{
+background-position:0% 50%;
+}
+
+50%{
+background-position:100% 50%;
+}
+
+100%{
+background-position:0% 50%;
+}
+
+}
+
+/* HEADER */
+
+header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+padding:18px 8%;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:rgba(255,255,255,0.92);
+backdrop-filter:blur(10px);
+z-index:1000;
+box-shadow:0 5px 20px rgba(0,0,0,0.08);
+}
+
+.logo{
+font-size:34px;
+font-weight:700;
+color:#ff5e00;
+}
+
+nav a{
+text-decoration:none;
+margin-left:25px;
+font-weight:500;
+color:#333;
+transition:0.3s;
+}
+
+nav a:hover{
+color:#ff5e00;
+}
+
+/* BUTTON */
+
+.btn{
+display:inline-block;
+padding:14px 32px;
+background:linear-gradient(135deg,#ff9800,#ff5e00);
+color:white;
+border-radius:12px;
+text-decoration:none;
+font-weight:600;
+transition:0.4s;
+box-shadow:0 10px 25px rgba(255,94,0,0.35);
+}
+
+.btn:hover{
+transform:translateY(-4px);
+}
+
+/* HERO */
+
+.hero{
+min-height:100vh;
+display:flex;
+align-items:center;
+padding:130px 8%;
+}
+
+.hero-container{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:50px;
+align-items:center;
+}
+
+.hero-text h1{
+font-size:65px;
+line-height:1.2;
+margin-bottom:20px;
+color:white;
+text-shadow:0 5px 20px rgba(0,0,0,0.3);
+}
+
+.hero-text p{
+font-size:18px;
+line-height:1.8;
+margin-bottom:30px;
+color:#f5f5f5;
+}
+
+.hero-image{
+background:white;
+padding:25px;
+border-radius:30px;
+box-shadow:0 20px 50px rgba(0,0,0,0.15);
+animation:float 4s ease-in-out infinite;
+}
+
+.hero-image img{
+width:100%;
+border-radius:20px;
+}
+
+/* FLOAT */
+
+@keyframes float{
+
+0%{
+transform:translateY(0px);
+}
+
+50%{
+transform:translateY(-15px);
+}
+
+100%{
+transform:translateY(0px);
+}
+
+}
+
+/* SECTION */
+
+section{
+padding:90px 8%;
+}
+
+.title{
+text-align:center;
+margin-bottom:60px;
+}
+
+.title h2{
+font-size:45px;
+color:white;
+margin-bottom:10px;
+}
+
+.title p{
+color:#f5f5f5;
+}
+
+/* PRODUCTS */
+
+.product-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:35px;
+}
+
+.card{
+background:rgba(255,255,255,0.92);
+border-radius:30px;
+overflow:hidden;
+box-shadow:0 15px 40px rgba(0,0,0,0.12);
+transition:0.4s;
+}
+
+.card:hover{
+transform:translateY(-15px);
+}
+
+.card img{
+width:100%;
+height:350px;
+object-fit:cover;
+transition:0.5s;
+}
+
+.card:hover img{
+transform:scale(1.08);
+}
+
+.card-content{
+padding:25px;
+text-align:center;
+}
+
+.card-content h3{
+font-size:28px;
+margin-bottom:10px;
+color:#ff5e00;
+}
+
+.card-content p{
+color:#666;
+margin-bottom:15px;
+}
+
+.price{
+font-size:30px;
+font-weight:700;
+color:green;
+margin-bottom:20px;
+}
+
+/* ABOUT */
+
+.about-container{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:50px;
+align-items:center;
+}
+
+.about-box{
+background:rgba(255,255,255,0.92);
+padding:40px;
+border-radius:30px;
+box-shadow:0 15px 40px rgba(0,0,0,0.08);
+}
+
+.about-box h3{
+font-size:36px;
+margin-bottom:20px;
+color:#ff5e00;
+}
+
+.about-box p{
+line-height:1.9;
+color:#555;
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:20px;
+}
+
+.stat{
+background:linear-gradient(135deg,#ff9800,#ff5e00);
+padding:30px;
+border-radius:25px;
+color:white;
+text-align:center;
+}
+
+.stat h4{
+font-size:36px;
+margin-bottom:10px;
+}
+
+/* CONTACT */
+
+.contact-form{
+max-width:700px;
+margin:auto;
+padding:40px;
+background:rgba(255,255,255,0.92);
+border-radius:30px;
+box-shadow:0 15px 40px rgba(0,0,0,0.08);
+}
+
+input,
+textarea{
+width:100%;
+padding:16px;
+margin:12px 0;
+border:none;
+border-radius:12px;
+font-size:16px;
+}
+
+footer{
+background:#111;
+padding:25px;
+text-align:center;
+color:white;
+margin-top:50px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+
+.hero-container,
+.about-container{
+grid-template-columns:1fr;
+}
+
+.hero-text h1{
+font-size:42px;
+}
+
+header{
+flex-direction:column;
+}
+
+nav{
+margin-top:10px;
+}
+
+nav a{
+margin:0 10px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+
+<div class="logo">Deep Jain Namkeen</div>
+
+<nav>
+<a href="#home">Home</a>
+<a href="#products">Products</a>
+<a href="#about">About</a>
+<a href="#contact">Contact</a>
+</nav>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+<div class="hero-container">
+
+<div class="hero-text">
+
+<h1>Premium Indian Namkeen With Authentic Taste</h1>
+
+<p>
+Deep Jain Namkeen brings you crispy, spicy and delicious Indian snacks inspired by traditional flavors and premium quality.
+</p>
+
+<a href="#products" class="btn">Explore Products</a>
+
+</div>
+
+<div class="hero-image">
+
+<img src="WhatsApp Image 2026-05-24 at 9.03.20 PM.jpeg" alt="Namkeen">
+
+</div>
+
+</div>
+
+</section>
+
+<!-- PRODUCTS -->
+
+<section id="products">
+
+<div class="title">
+
+<h2>Our Premium Products</h2>
+
+<p>Traditional Taste With Modern Packaging</p>
+
+</div>
+
+<div class="product-grid">
+
+<!-- PRODUCT 1 -->
+
+<div class="card">
+
+<img src="WhatsApp Image 2026-05-24 at 9.03.21 PM.jpeg" alt="Tomato Chips">
+
+<div class="card-content">
+
+<h3>Tomato Chips</h3>
+
+<p>Crispy and tangy tomato flavor chips.</p>
+
+<div class="price">₹10</div>
+
+<a href="#" class="btn">Order Now</a>
+
+</div>
+
+</div>
+
+<!-- PRODUCT 2 -->
+
+<div class="card">
+
+<img src="WhatsApp Image 2026-05-24 at 9.03.20 PM (2).jpeg" alt="Special Mixture">
+
+<div class="card-content">
+
+<h3>Special Mixture</h3>
+
+<p>Crunchy traditional namkeen mixture.</p>
+
+<div class="price">₹120</div>
+
+<a href="#" class="btn">Order Now</a>
+
+</div>
+
+</div>
+
+<!-- PRODUCT 3 -->
+
+<div class="card">
+
+<img src="WhatsApp Image 2026-05-24 at 9.03.20 PM (1).jpeg" alt="Dal Bhaji">
+
+<div class="card-content">
+
+<h3>Dal Bhaji</h3>
+
+<p>Authentic crispy dal bhaji namkeen.</p>
+
+<div class="price">₹150</div>
+
+<a href="#" class="btn">Order Now</a>
+
+</div>
+
+</div>
+
+<!-- PRODUCT 4 -->
+
+<div class="card">
+
+<img src="WhatsApp Image 2026-05-24 at 9.03.19 PM (1).jpeg" alt="Mung Mix">
+
+<div class="card-content">
+
+<h3>Mung Mix</h3>
+
+<p>Premium crunchy mung mix snacks.</p>
+
+<div class="price">₹140</div>
+
+<a href="#" class="btn">Order Now</a>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+
+<div class="title">
+
+<h2>About Us</h2>
+
+<p>Quality & Taste You Can Trust</p>
+
+</div>
+
+<div class="about-container">
+
+<div class="about-box">
+
+<h3>Why Choose Deep Jain Namkeen?</h3>
+
+<p>
+We provide premium quality namkeen products with hygienic packaging, authentic Indian flavors and trusted freshness.
+</p>
+
+</div>
+
+<div class="stats">
+
+<div class="stat">
+<h4>10+</h4>
+<p>Products</p>
+</div>
+
+<div class="stat">
+<h4>1000+</h4>
+<p>Customers</p>
+</div>
+
+<div class="stat">
+<h4>100%</h4>
+<p>Fresh Taste</p>
+</div>
+
+<div class="stat">
+<h4>24/7</h4>
+<p>Support</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+<div class="title">
+
+<h2>Contact Us</h2>
+
+<p>Connect With Deep Jain Namkeen</p>
+
+</div>
+
+<div class="contact-form">
+
+<form>
+
+<input type="text" placeholder="Enter Your Name" required>
+
+<input type="email" placeholder="Enter Your Email" required>
+
+<textarea rows="5" placeholder="Write Your Message"></textarea>
+
+<button type="submit" class="btn">Send Message</button>
+
+</form>
+
+</div>
+
+</section>
+
+<footer>
+
+© 2026 Deep Jain Namkeen | All Rights Reserved
+
+</footer>
+
+<script>
+
+const form=document.querySelector('form');
+
+form.addEventListener('submit',function(e){
+
+e.preventDefault();
+
+alert('Thank You For Contacting Deep Jain Namkeen!');
+
+form.reset();
+
+});
+
+</script>
+
+</body>
+</html>

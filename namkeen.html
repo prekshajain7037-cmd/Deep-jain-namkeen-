@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deep Jain Namkeen | Shuddh Desi Swad</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff5e00;
+            --secondary: #ff9800;
+            --light-bg: #fffbf5;
+            --glass: rgba(255, 255, 255, 0.9);
+            --shadow: 0 15px 35px rgba(0,0,0,0.1);
+            --accent: #2d3436;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--light-bg);
+            color: var(--accent);
+            overflow-x: hidden;
+        }
+
+        /* --- PRO FEATURE: Custom Scrollbar --- */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: #fff5e6; }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(var(--secondary), var(--primary)); border-radius: 10px; }
+
+        /* --- PRO FEATURE: Scroll Progress Bar --- */
+        .scroll-progress {
+            position: fixed; top: 0; left: 0; height: 4px;
+            background: linear-gradient(to right, var(--secondary), var(--primary));
+            width: 0%; z-index: 2001; transition: width 0.1s ease-out;
+        }
+
+        /* --- PRO FEATURE: Custom Premium Cursor (Desktop Only) --- */
+        .custom-cursor {
+            width: 8px; height: 8px; background: var(--primary);
+            border-radius: 50%; position: fixed; transform: translate(-50%, -50%);
+            pointer-events: none; z-index: 9999; transition: width 0.3s, height 0.3s;
+        }
+        .custom-cursor-blur {
+            width: 40px; height: 40px; border: 2px solid var(--secondary);
+            border-radius: 50%; position: fixed; transform: translate(-50%, -50%);
+            pointer-events: none; z-index: 9998; transition: transform 0.1s ease-out, background 0.3s, border-color 0.3s;
+            opacity: 0.4;
+        }
+
+        /* Animated Background */
+        .bg-gradient {
+            background: linear-gradient(-45deg, #fff5e6, #ffffff, #fff0e0, #fffcf0);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Premium Navbar */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: 0.5s;
+        }
+
+        header.scrolled {
+            padding: 12px 8%;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 5px 25px rgba(0,0,0,0.05);
+        }
+
+        .logo-container { display: flex; align-items: center; gap: 15px; }
+        .logo-img {
+            height: 55px; width: 55px; border-radius: 50%;
+            border: 3px solid var(--primary); transition: 0.5s;
+        }
+        .logo-text { font-size: 24px; font-weight: 700; color: var(--primary); text-transform: uppercase; }
+
+        nav a {
+            text-decoration: none; margin-left: 30px; font-weight: 600;
+            color: #444; position: relative; transition: 0.3s;
+        }
+        nav a:hover { color: var(--primary); }
+        nav a::after {
+            content: ''; position: absolute; width: 0; height: 3px;
+            bottom: -5px; left: 0; background-color: var(--primary);
+            transition: 0.3s ease; border-radius: 2px;
+        }
+        nav a:hover::after { width: 100%; }
+
+        /* Sections General Styling & PRO Scroll Reveal Base */
+        section { padding: 100px 8%; opacity: 0; transform: translateY(40px); transition: all 1s ease-out; }
+        section.reveal { opacity: 1; transform: translateY(0); }
+        
+        .section-title { text-align: center; margin-bottom: 50px; }
+        .section-title h2 { font-size: 40px; color: #222; }
+        .section-title .bar { width: 80px; height: 4px; background: var(--primary); margin: 15px auto; border-radius: 2px; }
+
+        /* Hero Section */
+        .hero { height: 100vh; display: flex; align-items: center; opacity: 1; transform: none; }
+        .hero-text h1 { font-size: 65px; line-height: 1.1; margin-bottom: 25px; color: #222; }
+        .hero-text span { color: var(--primary); text-shadow: 2px 2px 10px rgba(255,94,0,0.2); }
+
+        .btn {
+            display: inline-block; padding: 16px 45px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white; border-radius: 50px; text-decoration: none;
+            font-weight: 700; transition: 0.4s; border: none; cursor: pointer;
+            box-shadow: 0 10px 25px rgba(255, 94, 0, 0.3); position: relative; overflow: hidden;
+        }
+        .btn::before {
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+        .btn:hover::before { left: 100%; }
+        .btn:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(255, 94, 0, 0.5); }
+
+        .hero-img-box img {
+            width: 100%; border-radius: 30px;
+            animation: float 5s ease-in-out infinite;
+            filter: drop-shadow(0 25px 50px rgba(0,0,0,0.15));
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Advanced Product Grid */
+        .product-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            background: white; padding: 30px; border-radius: 35px;
+            text-align: center; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            border: 1px solid #f0f0f0; box-shadow: var(--shadow); overflow: hidden;
+        }
+        .card:hover { 
+            transform: translateY(-15px) scale(1.02); 
+            border-color: var(--primary); 
+            box-shadow: 0 20px 40px rgba(255, 94, 0, 0.15);
+        }
+        .card img { width: 100%; height: 220px; object-fit: contain; transition: 0.6s ease; }
+        .card:hover img { transform: scale(1.15) rotate(3deg); }
+
+        .price { font-size: 26px; font-weight: 800; color: var(--primary); margin: 15px 0; }
+
+        /* About Us Section */
+        .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .about-text p { font-size: 1.1rem; color: #555; line-height: 1.8; margin-bottom: 20px; }
+
+        /* Contact Section */
+        .contact-container { max-width: 700px; margin: 0 auto; background: white; padding: 40px; border-radius: 30px; box-shadow: var(--shadow); }
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 600; color: #444; }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 15px;
+            font-size: 1rem; transition: 0.3s; outline: none; background: white;
+        }
+        .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(255,94,0,0.1); }
+
+        /* --- PRO FEATURE: Order Menu Popup Modal --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(8px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 3000; opacity: 0; pointer-events: none; transition: 0.4s ease;
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
+        
+        .order-modal {
+            background: white; padding: 40px; border-radius: 35px; width: 90%; max-width: 550px;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2); transform: translateY(-50px); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative; text-align: center;
+        }
+        .modal-overlay.active .order-modal { transform: translateY(0); }
+        
+        .close-modal {
+            position: absolute; top: 20px; right: 25px; font-size: 28px;
+            cursor: pointer; color: #888; transition: 0.3s;
+        }
+        .close-modal:hover { color: var(--primary); }
+
+        /* Notification Popup */
+        #order-notify {
+            position: fixed; bottom: 30px; left: 30px;
+            background: white; padding: 15px 25px; border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex; align-items: center; gap: 10px;
+            transform: translateX(-150%); transition: 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 2000;
+        }
+
+        /* Floating WhatsApp */
+        .whatsapp-btn {
+            position: fixed; bottom: 30px; right: 30px;
+            background: #25d366; color: white; width: 65px; height: 65px;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-size: 32px; text-decoration: none; z-index: 1000;
+            box-shadow: 0 10px 25px rgba(37,211,102,0.4); animation: pulse 2s infinite;
+            transition: 0.3s;
+        }
+        .whatsapp-btn:hover { transform: scale(1.1) rotate(10deg); }
+
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37,211,102,0.7); } 70% { box-shadow: 0 0 0 20px rgba(37,211,102,0); } 100% { box-shadow: 0 0 0 0 rgba(37,211,102,0); } }
+
+        footer { background: #111; color: #888; padding: 60px 8%; text-align: center; }
+        footer h3 { color: white; margin-bottom: 20px; }
+
+        @media (max-width: 768px) {
+            .hero-text h1 { font-size: 40px; }
+            .hero-content, .about-content { grid-template-columns: 1fr; text-align: center; }
+            .custom-cursor, .custom-cursor-blur { display: none; }
+        }
+    </style>
+</head>
+<body class="bg-gradient">
+
+    <!-- PRO UI ELEMENTS -->
+    <div class="scroll-progress" id="progress-bar"></div>
+    <div class="custom-cursor" id="cursor"></div>
+    <div class="custom-cursor-blur" id="cursor-blur"></div>
+
+    <!-- --- PRO FEATURE: Dynamic Order Menu Modal --- -->
+    <div class="modal-overlay" id="orderModalOverlay">
+        <div class="order-modal">
+            <span class="close-modal" onclick="closeOrderModal()">&times;</span>
+            <h2 style="margin-bottom: 10px; color: #222;">Quick Order Menu</h2>
+            <p style="color: #666; margin-bottom: 25px;">Please fill in the details to place your order.</p>
+            
+            <form onsubmit="submitOrder(event)">
+                <div class="form-group">
+                    <label>Selected Product</label>
+                    <input type="text" id="modalProduct" readonly style="background: #f9f9f9; font-weight: 600; color: var(--primary);">
+                </div>
+                <div class="form-group">
+                    <label for="modalName">Your Name</label>
+                    <input type="text" id="modalName" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="modalContact">Contact Number</label>
+                    <input type="tel" id="modalContact" placeholder="Enter your mobile number" required>
+                </div>
+                <div class="form-group">
+                    <label for="modalEmail">Email Address (Optional)</label>
+                    <input type="email" id="modalEmail" placeholder="Enter your email address">
+                </div>
+                <div class="form-group">
+                    <label for="modalQty">Quantity</label>
+                    <select id="modalQty">
+                        <option value="1">1 Packet</option>
+                        <option value="2">2 Packets</option>
+                        <option value="5">5 Packets</option>
+                        <option value="10">10+ Packets (Wholesale)</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn" style="width: 100%; margin-top: 10px;">Confirm Order 📦</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Notification Popup -->
+    <div id="order-notify">
+        <span style="font-size: 20px;">🔥</span>
+        <span id="notify-text">Someone recently bought Special Mix!</span>
+    </div>
+
+    <!-- WhatsApp Floating Icon -->
+    <a href="https://wa.me/yournumber" class="whatsapp-btn" target="_blank">📲</a>
+
+    <!-- Navbar -->
+    <header id="navbar">
+        <div class="logo-container">
+            <img src="logo.jpeg.jpeg" alt="Logo" class="logo-img">
+            <span class="logo-text">Deep Jain</span>
+        </div>
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#products">Menu</a>
+            <a href="#about">Our Story</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content" style="display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 50px; align-items: center; width: 100%;">
+            <div class="hero-text">
+                <h1>The Secret of <span>Authentic</span> Indian Crunch!</h1>
+                <p style="font-size: 1.2rem; color: #555; margin-bottom: 30px;">Premium quality namkeen crafted with 100% natural spices and daily fresh packing.</p>
+                <a href="#products" class="btn">View Collection</a>
+            </div>
+            <div class="hero-img-box">
+                <img src="logo.jpeg.jpeg" alt="Namkeen" id="slideshow">
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu / Products Section -->
+    <section id="products">
+        <div class="section-title">
+            <h2>Our Premium Selection</h2>
+            <div class="bar"></div>
+        </div>
+        
+        <div class="product-grid">
+            <div class="card">
+                <img src="chana-dal.png.jpeg" alt="Chana Dal">
+                <h3>Chana Dal</h3>
+                <div class="price">₹130</div>
+                <button class="btn" style="padding: 10px 25px;" onclick="openOrderModal('Chana Dal')">Order Now</button>
+            </div>
+
+            <div class="card">
+                <img src="dal-bhaji.png.jpeg" alt="Dal Bhaji">
+                <h3>Dal Bhaji</h3>
+                <div class="price">₹130</div>
+                <button class="btn" style="padding: 10px 25px;" onclick="openOrderModal('Dal Bhaji')">Order Now</button>
+            </div>
+
+            <div class="card">
+                <img src="green-orient-chips.png.jpeg" alt="Green Chips">
+                <h3>Green Orient Chips</h3>
+                <div class="price">₹10</div>
+                <button class="btn" style="padding: 10px 25px;" onclick="openOrderModal('Green Orient Chips')">Order Now</button>
+            </div>
+
+            <div class="card">
+                <img src="masala-mix.png.jpeg" alt="Masala Mix">
+                <h3>Masala Mix</h3>
+                <div class="price">₹70</div>
+                <button class="btn" style="padding: 10px 25px;" onclick="openOrderModal('Masala Mix')">Order Now</button>
+            </div>
+
+            <div class="card">
+                <img src="mung-mix.png.jpeg" alt="Mung Mix">
+                <h3>Mung Mix</h3>
+                <div class="price">₹130</div>
+                <button class="btn" style="padding: 10px 25px;" onclick="openOrderModal('Mung Mix')">Order Now</button>
+            </div>
+
+            <div class="card">
+                <img src="sal-masala.png.jpeg" alt="Sal Masala">
+                <h3>Sal Masala</h3>
+                <div class="price">₹130</div>
+                <button class="btn" style="padding: 10px 25px;" onclick="openOrderModal('Sal Masala')">Order Now</button>
+            </div>
+
+            <div class="card">
+                <img src="special-mixture.png.jpeg" alt="Special Mix">
+                <h3>Special Mixture</h3>
+                <div class="price">₹130</div>
+                <button class="btn" style="padding: 10px 25px;" onclick="openOrderModal('Special Mixture')">Order Now</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" style="background: rgba(255, 94, 0, 0.03);">
+        <div class="section-title">
+            <h2>Our Story</h2>
+            <div class="bar"></div>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <h3>Tradition In Every Bite</h3>
+                <p>Deep Jain Namkeen stands for purity, quality, and authentic taste. For years, we have been bringing families together over the love of traditional Indian snacks. Every batch is made using meticulously selected ingredients and traditional recipes passed down through generations.</p>
+                <p>We strictly avoid artificial colors and harmful preservatives, ensuring that you get only the healthiest and crunchiest experience every single time.</p>
+            </div>
+            <div style="text-align: center;">
+                <img src="logo.jpeg.jpeg" alt="About Us" style="width: 80%; max-width: 350px; border-radius: 50%; border: 8px solid white; box-shadow: var(--shadow);">
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="section-title">
+            <h2>Get In Touch</h2>
+            <div class="bar"></div>
+        </div>
+        <div class="contact-container">
+            <form action="#" onsubmit="alert('Thank you for contacting us! We will get back to you soon.'); return false;">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" placeholder="Enter your full name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email / Phone Number</label>
+                    <input type="text" id="email" placeholder="Enter your contact info" required>
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" rows="5" placeholder="Tell us what you need..." required></textarea>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <h3>Deep Jain Namkeen</h3>
+        <p>Bringing the taste of tradition to your home.</p>
+        <div style="margin: 25px 0;">
+            <a href="#" style="color: white; margin: 0 15px; text-decoration: none;">Instagram</a>
+            <a href="#" style="color: white; margin: 0 15px; text-decoration: none;">Facebook</a>
+            <a href="#" style="color: white; margin: 0 15px; text-decoration: none;">Twitter</a>
+        </div>
+        <hr style="opacity: 0.1; margin-bottom: 25px;">
+        <p>&copy; 2026 | Pure Veg | Shuddh Desi Swad</p>
+    </footer>
+
+    <script>
+        // --- PRO FEATURE: Modal Open/Close Logic ---
+        const modalOverlay = document.getElementById('orderModalOverlay');
+        const modalProductInput = document.getElementById('modalProduct');
+
+        function openOrderModal(productName) {
+            modalProductInput.value = productName;
+            modalOverlay.classList.add('active');
+        }
+
+        function closeOrderModal() {
+            modalOverlay.classList.remove('active');
+        }
+
+        // Close modal when clicking outside the box
+        modalOverlay.addEventListener('click', (e) => {
+            if(e.target === modalOverlay) closeOrderModal();
+        });
+
+        function submitOrder(event) {
+            event.preventDefault();
+            const pName = modalProductInput.value;
+            const uName = document.getElementById('modalName').value;
+            alert(`🎉 Success! Thank you ${uName}.\nYour order request for "${pName}" has been received. We will contact you shortly.`);
+            closeOrderModal();
+        }
+
+        // Custom Cursor Logic
+        const cursor = document.getElementById('cursor');
+        const cursorBlur = document.getElementById('cursor-blur');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+            setTimeout(() => {
+                cursorBlur.style.left = e.clientX + 'px';
+                cursorBlur.style.top = e.clientY + 'px';
+            }, 50);
+        });
+
+        // Cursor scale effects
+        document.querySelectorAll('a, button, .card, .close-modal').forEach(elem => {
+            elem.addEventListener('mouseenter', () => {
+                cursor.style.width = '18px'; cursor.style.height = '18px';
+                cursorBlur.style.background = 'rgba(255, 94, 0, 0.1)'; cursorBlur.style.borderColor = 'transparent';
+            });
+            elem.addEventListener('mouseleave', () => {
+                cursor.style.width = '8px'; cursor.style.height = '8px';
+                cursorBlur.style.background = 'transparent'; cursorBlur.style.borderColor = 'var(--secondary)';
+            });
+        });
+
+        // Scroll Progress & Navbar Effect
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('header');
+            window.scrollY > 50 ? nav.classList.add('scrolled') : nav.classList.remove('scrolled');
+
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progress-bar').style.width = scrolled + '%';
+        });
+
+        // Scroll Reveal Animation
+        const revealSections = document.querySelectorAll('section');
+        const revealOnScroll = () => {
+            revealSections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                if(sectionTop < window.innerHeight - 100) {
+                    section.classList.add('reveal');
+                }
+            });
+        };
+        window.addEventListener('scroll', revealOnScroll);
+        window.addEventListener('load', revealOnScroll);
+
+        // Advanced Slideshow
+        const slideImages = ["logo.jpeg.jpeg", "special-mixture.png.jpeg"];
+        let sIdx = 0;
+        setInterval(() => {
+            sIdx = (sIdx + 1) % slideImages.length;
+            const sImg = document.getElementById('slideshow');
+            sImg.style.opacity = '0';
+            setTimeout(() => {
+                sImg.src = slideImages[sIdx];
+                sImg.style.opacity = '1';
+            }, 600);
+        }, 5000);
+
+        // Order Notification Popup
+        const items = ["Special Mixture", "Chana Dal", "Masala Mix", "Dal Bhaji"];
+        const notify = document.getElementById('order-notify');
+        const notifyText = document.getElementById('notify-text');
+
+        function showNotification() {
+            const randomItem = items[Math.floor(Math.random() * items.length)];
+            notifyText.innerText = `Someone just ordered ${randomItem}!`;
+            notify.style.transform = "translateX(0)";
+            
+            setTimeout(() => {
+                notify.style.transform = "translateX(-150%)";
+            }, 4000);
+        }
+
+        setTimeout(showNotification, 3000);
+        setInterval(showNotification, 15000);
+    </script>
+</body>
+</html>
